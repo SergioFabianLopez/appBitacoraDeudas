@@ -1,39 +1,48 @@
 import flet as ft
 
-def exit_screen():
-    return ft.Column(
-        controls=[
-            ft.Text("Salir de la aplicación", size=30, weight="bold"),
-            # Aquí puedes agregar otros componentes necesarios para la pantalla de salida
-        ],
-        expand=True,
-    )
+from views.addpay import add_pay
+from views.counts import counts
+from views.main import main_screen
 
-# Define el NavigationBar y el manejador de clics
 def navbar(page: ft.Page):
-    def handle_navigation(e):
+    content_area = ft.Column(expand=True)
+    
+    def on_tab_change(e):
         selected_index = e.control.selected_index
+        content_area.controls.clear()  # Limpiar controles existentes
+        
         if selected_index == 0:
-            page.go("/main")
+            content_area.controls.append(main_screen(page))
         elif selected_index == 1:
-            page.go("/add-payment")
+            content_area.controls.append(add_pay(page))
         elif selected_index == 2:
-            page.go("/counts")
+            content_area.controls.append(counts(page))
         elif selected_index == 3:
             page.go("/exit")
-
-    return ft.Container(
-        ft.NavigationBar(
-            destinations=[
-                ft.NavigationBarDestination(icon=ft.icons.FORMAT_LIST_BULLETED_ROUNDED, label="Pagos"),
-                ft.NavigationBarDestination(icon=ft.icons.ATTACH_MONEY, label="Agregar pago"),
-                ft.NavigationBarDestination(icon=ft.icons.WALLET, label="Cuentas"),
-                ft.NavigationBarDestination(icon=ft.icons.EXIT_TO_APP, label="Salir"),
-            ],
-            on_change=handle_navigation,
-            bgcolor=ft.colors.BLACK54,
-        ),
-        height=60,  # Altura del NavigationBar
-        bgcolor=ft.colors.BLACK,
-        padding=ft.Padding(0, 0, 0, 10), 
+        
+        content_area.update()
+    
+    cupertino_navigation_bar = ft.CupertinoNavigationBar(
+        bgcolor=ft.colors.AMBER_100,
+        inactive_color=ft.colors.GREY,
+        active_color=ft.colors.BLACK,
+        destinations=[
+            ft.NavigationBarDestination(icon=ft.icons.FORMAT_LIST_BULLETED_ROUNDED, label="Pagos"),
+            ft.NavigationBarDestination(icon=ft.icons.ATTACH_MONEY, label="Agregar pago"),
+            ft.NavigationBarDestination(icon=ft.icons.WALLET, label="Cuentas"),
+            ft.NavigationBarDestination(icon=ft.icons.EXIT_TO_APP, label="Salir"),
+        ],
+        on_change=on_tab_change
+    )
+    
+    # Agrega el contenido inicial
+    content_area.controls.append(main_screen(page))
+    
+    # Devuelve una columna con el área de contenido en la parte superior y la barra de navegación en la parte inferior
+    return ft.Column(
+        controls=[
+            content_area,
+            cupertino_navigation_bar
+        ],
+        expand=True
     )

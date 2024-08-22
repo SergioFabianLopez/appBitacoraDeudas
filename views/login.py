@@ -31,7 +31,7 @@ def login_screen(page: ft.Page):
 
         if len(response) > 0:
             page.client_storage.set("id_user", response[0]['id'])
-            page.go("/main")
+            page.go("/nav")
         else:
             print("Error: usuario no encontrado")
             page.open(banner)
@@ -40,7 +40,7 @@ def login_screen(page: ft.Page):
         ft.Column([
             ft.Container(
                 ft.Text(
-                    "Iniciar Sesión",
+                    "Iniciar Sesión V1.0",
                     width=320,
                     size=30,
                     text_align="center",

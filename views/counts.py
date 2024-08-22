@@ -1,6 +1,5 @@
 import flet as ft
 from logic.data import list_accounts_user, list_accounts_id
-from .navbar import navbar
 
 def counts(page: ft.Page):
     # Variables para capturar los valores de los controles
@@ -84,7 +83,6 @@ def counts(page: ft.Page):
                 padding=ft.padding.only(0, 0, 0, 50),
             ),
             ft.Container(expand=True),
-            navbar(page)
         ],
         expand=True,
         alignment=ft.MainAxisAlignment.SPACE_EVENLY

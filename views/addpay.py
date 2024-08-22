@@ -4,7 +4,6 @@ import base64
 import flet as ft
 
 from logic.data import add_pays, list_accounts_user
-from .navbar import navbar
 
 def add_pay(page: ft.Page):
     # Variables para capturar los valores de los controles
@@ -152,7 +151,6 @@ def add_pay(page: ft.Page):
                 padding=ft.padding.only(0, 0, 0, 50),
             ),
             ft.Container(expand=True),
-            navbar(page)
         ],
         expand=True,
         alignment=ft.MainAxisAlignment.SPACE_EVENLY

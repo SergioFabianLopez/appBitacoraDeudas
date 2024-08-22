@@ -1,7 +1,6 @@
 import flet as ft
 
 from logic.data import list_accounts_user, list_pays
-from .navbar import navbar
 
 # Define la tabla de datos
 lv = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
@@ -32,9 +31,11 @@ def dropdown_changed(e):
     lv.update()
 
 def main_screen(page: ft.Page):
+    all_accounts = list()
     id_user = page.client_storage.get("id_user")
     # Obtener todas las cuentas
-    all_accounts = list_accounts_user([id_user])
+    if id_user is not None:
+        all_accounts = list_accounts_user([id_user])
 
     # Crear las opciones del Dropdown
     dropdown_options = []
@@ -42,7 +43,7 @@ def main_screen(page: ft.Page):
         dropdown_options.append(ft.dropdown.Option(key=item["id"], text=item["name"]))
 
     return ft.Container(
-        content=ft.Column(
+        ft.Column(
             controls=[
                 ft.Container(
                     ft.Text("Cuentas activas", size=20, color=ft.colors.WHITE),
@@ -65,7 +66,6 @@ def main_screen(page: ft.Page):
                     expand=True,
                     padding=ft.padding.only(10, 0),
                 ),
-                navbar(page),
             ],
         ),
         expand=True,
