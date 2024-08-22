@@ -1,6 +1,6 @@
 import flet as ft
 
-from logic.data import list_accounts, list_pays
+from logic.data import list_accounts_user, list_pays
 from .navbar import navbar
 
 # Define la tabla de datos
@@ -14,15 +14,6 @@ rows = ft.Row([
     alignment=ft.MainAxisAlignment.CENTER,
     spacing=20
 )
-
-
-# Obtener todas las cuentas
-all_accounts = list_accounts()
-
-# Crear las opciones del Dropdown
-dropdown_options = []
-for item in all_accounts:
-    dropdown_options.append(ft.dropdown.Option(key=item["id"], text=item["name"]))
 
 def dropdown_changed(e):
     lv.clean()
@@ -41,18 +32,27 @@ def dropdown_changed(e):
     lv.update()
 
 def main_screen(page: ft.Page):
+    id_user = page.client_storage.get("id_user")
+    # Obtener todas las cuentas
+    all_accounts = list_accounts_user([id_user])
+
+    # Crear las opciones del Dropdown
+    dropdown_options = []
+    for item in all_accounts:
+        dropdown_options.append(ft.dropdown.Option(key=item["id"], text=item["name"]))
+
     return ft.Container(
         content=ft.Column(
             controls=[
                 ft.Container(
-                    ft.Text("Cuentas activas", size=20, color=ft.colors.BLACK),
+                    ft.Text("Cuentas activas", size=20, color=ft.colors.WHITE),
                     padding=ft.padding.only(40, 50, 40, 5),
                 ),
                 ft.Container(
                     ft.Dropdown(
                     options=dropdown_options,
                         height=55,
-                        color=ft.colors.BLUE,
+                        color=ft.colors.WHITE,
                         on_change=dropdown_changed
                     ),
                     padding=ft.padding.only(40, 0, 40, 15)
@@ -69,5 +69,5 @@ def main_screen(page: ft.Page):
             ],
         ),
         expand=True,
-        bgcolor="#8977ba"
+        bgcolor="#38197a"
     )

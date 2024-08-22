@@ -1,5 +1,5 @@
 import flet as ft
-from flet import View, AppBar, Text, ElevatedButton
+from flet import View
 from views.addpay import add_pay
 from views.login import login_screen
 from views.main import main_screen
@@ -24,7 +24,7 @@ def route_change(e):
             View(
                 "/",
                 [
-                    add_pay(page)
+                    login_screen(page)
                 ],
             )
         )

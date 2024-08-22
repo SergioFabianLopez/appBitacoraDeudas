@@ -3,14 +3,8 @@ from decimal import Decimal
 import base64
 import flet as ft
 
-from logic.data import add_pays, list_accounts
+from logic.data import add_pays, list_accounts_user
 from .navbar import navbar
-
-# Obtener todas las cuentas
-all_accounts = list_accounts()
-
-# Crear las opciones del Dropdown
-dropdown_options = [ft.dropdown.Option(key=item["id"], text=item["name"]) for item in all_accounts]
 
 def add_pay(page: ft.Page):
     # Variables para capturar los valores de los controles
@@ -18,6 +12,13 @@ def add_pay(page: ft.Page):
     amount_value = ft.Ref[ft.TextField]()
     date_value = ft.Ref[ft.DatePicker]()
     image_value = ft.Ref[str]()  # Para guardar la cadena base64 de la imagen
+
+    id_user = page.client_storage.get("id_user")
+    # Obtener todas las cuentas
+    all_accounts = list_accounts_user([id_user])
+
+    # Crear las opciones del Dropdown
+    dropdown_options = [ft.dropdown.Option(key=item["id"], text=item["name"]) for item in all_accounts]
 
     def send_image(e):
         # Verificar si el usuario seleccionó un archivo
@@ -38,14 +39,14 @@ def add_pay(page: ft.Page):
 
     def handle_yes(e):
         # Verificar si los valores están presentes
-        if not all([dropdown_value.current.value, amount_value.current.value, date_value.current.value, image_value.current]):
+        if not all([dropdown_value.current.value, amount_value.current.value, date_value.current.value]):
             print("Error: Faltan valores necesarios.")
             return
         
         selected_account = dropdown_value.current.value
         amount = amount_value.current.value
         payment_date = date_value.current.value.strftime('%Y-%m-%d')
-        image_base64 = image_value.current  # La imagen en formato base64
+        image_base64 = 'No especificado'
         
         # Llamar a add_pays con los valores obtenidos
         add_pays(payment_date, Decimal(amount), image_base64, selected_account)

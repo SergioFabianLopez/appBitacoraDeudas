@@ -1,12 +1,6 @@
 import flet as ft
-from logic.data import list_accounts, list_accounts_id
+from logic.data import list_accounts_user, list_accounts_id
 from .navbar import navbar
-
-# Obtener todas las cuentas
-all_accounts = list_accounts()
-
-# Crear las opciones del Dropdown
-dropdown_options = [ft.dropdown.Option(key=item["id"], text=item["name"]) for item in all_accounts]
 
 def counts(page: ft.Page):
     # Variables para capturar los valores de los controles
@@ -14,6 +8,13 @@ def counts(page: ft.Page):
     total_text = ft.Text("", size=20, color=ft.colors.BLACK)
     purchase_date_text = ft.Text("", size=20, color=ft.colors.BLACK)
     remaining_text = ft.Text("", size=20, color=ft.colors.BLACK)
+
+    id_user = page.client_storage.get("id_user")
+    # Obtener todas las cuentas
+    all_accounts = list_accounts_user([id_user])
+    
+    # Crear las opciones del Dropdown
+    dropdown_options = [ft.dropdown.Option(key=item["id"], text=item["name"]) for item in all_accounts]
 
     def dropdown_changed(e):
         selected_id = e.control.value
