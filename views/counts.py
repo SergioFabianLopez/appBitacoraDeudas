@@ -23,7 +23,7 @@ def counts(page: ft.Page):
             purchase_text.value = request[0].get('name')
             total_text.value = request[0].get('total')
             purchase_date_text.value = request[0].get('purchase_date')
-            remaining_text.value = 800
+            remaining_text.value = request[0].get('remaining')
         else:
             purchase_text.value = "N/A"
             total_text.value = "N/A"

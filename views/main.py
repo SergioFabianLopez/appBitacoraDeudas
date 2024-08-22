@@ -18,18 +18,19 @@ rows = ft.Row([
 def dropdown_changed(e):
     lv.clean()
     data = list_pays([e.control.value])
-
+    item_pay = 1
     for item in data:
         rows_data = ft.Row([
-            ft.Text(item['id'], color=ft.colors.BLACK),
+            ft.Text(item_pay, color=ft.colors.BLACK),
             ft.Text(item['payments_date'], color=ft.colors.BLACK),
             ft.Text(item['amount'], color=ft.colors.BLACK),
-            ft.Text("2000", color=ft.colors.BLACK),
+            ft.Text(item['remaining'], color=ft.colors.BLACK),
         ],
             alignment=ft.MainAxisAlignment.CENTER,
             spacing=45
         )
         lv.controls.append(rows_data)
+        item_pay += 1
     lv.update()
 
 
@@ -58,7 +59,6 @@ def main_screen(page: ft.Page):
                    ft.Dropdown(
                         options=dropdown_options,
                         height=55,
-                        color=ft.colors.WHITE,
                         on_change=dropdown_changed,
                         border_color="#A18249",
                     ),
