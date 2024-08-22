@@ -5,6 +5,7 @@ import flet as ft
 
 from logic.data import add_pays, list_accounts_user
 
+
 def add_pay(page: ft.Page):
     # Variables para capturar los valores de los controles
     dropdown_value = ft.Ref[ft.Dropdown]()
@@ -41,12 +42,12 @@ def add_pay(page: ft.Page):
         if not all([dropdown_value.current.value, amount_value.current.value, date_value.current.value]):
             print("Error: Faltan valores necesarios.")
             return
-        
+
         selected_account = dropdown_value.current.value
         amount = amount_value.current.value
         payment_date = date_value.current.value.strftime('%Y-%m-%d')
         image_base64 = 'No especificado'
-        
+
         # Llamar a add_pays con los valores obtenidos
         add_pays(payment_date, Decimal(amount), image_base64, selected_account)
         page.close(dlg_modal)
@@ -80,78 +81,93 @@ def add_pay(page: ft.Page):
         actions=[
             ft.TextButton(text="OK", style=action_button_style, on_click=close_banner),
         ],
-    )    
+    )
+
     return ft.Column(
         controls=[
             ft.Container(
                 ft.Column([
                     ft.Container(
                         ft.Text(
-                            "¿A qué cuenta?",
+                            "Agregar pago",
                             color=ft.colors.BLACK,
                             width=320,
                             size=20,
                             weight="w900"
                         ),
-                        padding=ft.padding.only(20, 100, 20, 10)
+                        padding=ft.padding.only(40, 50, 40, 5),
                     ),
-                    ft.Container(                                
+                    ft.Container(
+                        ft.Text(
+                            "¿A qué cuenta?",
+                            color=ft.colors.BLACK,
+                            width=320,
+                            size=15,
+                        ),
+                        padding=ft.padding.only(40, 10, 40, 5)
+                    ),
+                    ft.Container(
                         ft.Dropdown(
                             options=dropdown_options,
-                            ref=dropdown_value  # Asignar referencia
+                            ref=dropdown_value,
+                            border_color="#A18249",
                         ),
-                        padding=ft.padding.only(20, 50, 20, 30)
+                        padding=ft.padding.only(40, 10, 40, 5)
+                    ),
+                    ft.Container(
+                        ft.Text(
+                            "Cantidad",
+                            color=ft.colors.BLACK,
+                            width=320,
+                            size=15,
+                        ),
+                        padding=ft.padding.only(40, 10, 40, 1)
                     ),
                     ft.Container(
                         ft.TextField(
-                            label="Cantidad",
                             color="black",
-                            ref=amount_value  # Asignar referencia
+                            ref=amount_value,
+                            border_color="#A18249",
                         ),
-                        padding=ft.padding.only(20, 10, 20, 30),
-                        width=200
+                        padding=ft.padding.only(40, 5, 40, 5),
+                        width=300
                     ),
                     ft.Container(
-                        ft.Row([
-                            ft.ElevatedButton(
-                                "¿Qué día se realizó?",
-                                icon=ft.icons.CALENDAR_MONTH,
-                                on_click=lambda e: page.open(
-                                    ft.DatePicker(
-                                        first_date=datetime.datetime(year=2023, month=10, day=1),
-                                        last_date=datetime.datetime(year=2024, month=10, day=1),
-                                        ref=date_value  # Asignar referencia
-                                    )
-                                ),
+                       ft.ElevatedButton(
+                            "¿Qué día se realizó?",
+                            icon=ft.icons.CALENDAR_MONTH,
+                            on_click=lambda e: page.open(
+                                ft.DatePicker(
+                                    first_date=datetime.datetime(year=2023, month=10, day=1),
+                                    last_date=datetime.datetime(year=2024, month=10, day=1),
+                                    ref=date_value  # Asignar referencia
+                                )
                             ),
-                            # Botón para abrir el FilePicker
-                            ft.ElevatedButton(
-                                "Seleccionar comprobante",
-                                on_click=lambda _: file_picker.pick_files(),
-                                icon=ft.icons.UPLOAD_FILE
-                            )
-                        ],
-                        alignment=ft.MainAxisAlignment.SPACE_EVENLY)
+                        ),
+                        padding=ft.padding.only(40, 5, 40, 5)
                     ),
                     ft.Container(
                         ft.ElevatedButton(
-                            "Guardar", 
-                            on_click=lambda e: page.open(dlg_modal)
+                            "Seleccionar comprobante",
+                            on_click=lambda _: file_picker.pick_files(),
+                            icon=ft.icons.UPLOAD_FILE
                         ),
+                        padding=ft.padding.only(40, 10, 40, 5)
+                    ),
+                    ft.Container(
+                        content=ft.ElevatedButton(
+                            "Guardar",
+                            on_click=lambda e: page.open(dlg_modal),
+                            width=280,
+                            bgcolor="#019863",
+                            color="white"
+                        ),
+                        alignment=ft.alignment.center,
+                        padding=ft.padding.only(top=80),
                     )
                 ]),
-                bgcolor="#8977ba",
-                height=600,
-                border_radius=ft.BorderRadius(
-                    top_left=0,
-                    top_right=0,
-                    bottom_left=40,
-                    bottom_right=40
-                ),
-                padding=ft.padding.only(0, 0, 0, 50),
             ),
             ft.Container(expand=True),
         ],
-        expand=True,
-        alignment=ft.MainAxisAlignment.SPACE_EVENLY
+        expand=True
     )

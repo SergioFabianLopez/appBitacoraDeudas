@@ -14,6 +14,7 @@ rows = ft.Row([
     spacing=20
 )
 
+
 def dropdown_changed(e):
     lv.clean()
     data = list_pays([e.control.value])
@@ -25,10 +26,12 @@ def dropdown_changed(e):
             ft.Text(item['amount'], color=ft.colors.BLACK),
             ft.Text("2000", color=ft.colors.BLACK),
         ],
-        alignment=ft.MainAxisAlignment.CENTER,
-        spacing=45)
+            alignment=ft.MainAxisAlignment.CENTER,
+            spacing=45
+        )
         lv.controls.append(rows_data)
     lv.update()
+
 
 def main_screen(page: ft.Page):
     all_accounts = list()
@@ -40,21 +43,24 @@ def main_screen(page: ft.Page):
     # Crear las opciones del Dropdown
     dropdown_options = []
     for item in all_accounts:
-        dropdown_options.append(ft.dropdown.Option(key=item["id"], text=item["name"]))
+        dropdown_options.append(
+            ft.dropdown.Option(key=item["id"], text=item["name"])
+            )
 
     return ft.Container(
         ft.Column(
             controls=[
                 ft.Container(
-                    ft.Text("Cuentas activas", size=20, color=ft.colors.WHITE),
+                    ft.Text("Cuentas activas", size=20, weight="w900"),
                     padding=ft.padding.only(40, 50, 40, 5),
                 ),
                 ft.Container(
-                    ft.Dropdown(
-                    options=dropdown_options,
+                   ft.Dropdown(
+                        options=dropdown_options,
                         height=55,
                         color=ft.colors.WHITE,
-                        on_change=dropdown_changed
+                        on_change=dropdown_changed,
+                        border_color="#A18249",
                     ),
                     padding=ft.padding.only(40, 0, 40, 15)
                 ),
@@ -68,6 +74,5 @@ def main_screen(page: ft.Page):
                 ),
             ],
         ),
-        expand=True,
-        bgcolor="#38197a"
+        expand=True
     )

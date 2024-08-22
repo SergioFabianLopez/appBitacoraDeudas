@@ -1,6 +1,7 @@
 import flet as ft
 
-from logic.data import get_login  
+from logic.data import get_login
+
 
 def login_screen(page: ft.Page):
     user_value = ft.Ref[str]()
@@ -12,22 +13,32 @@ def login_screen(page: ft.Page):
     action_button_style = ft.ButtonStyle(color=ft.colors.BLUE)
     banner = ft.Banner(
             bgcolor=ft.colors.AMBER_100,
-            leading=ft.Icon(ft.icons.NO_ENCRYPTION_GMAILERRORRED, color=ft.colors.RED, size=40),
+            leading=ft.Icon(
+                ft.icons.NO_ENCRYPTION_GMAILERRORRED,
+                color=ft.colors.RED, size=40
+            ),
             content=ft.Text(
                 value="Error: usuario no encontrado",
                 color=ft.colors.BLACK,
             ),
             actions=[
-                ft.TextButton(text="OK", style=action_button_style, on_click=close_banner),
+                ft.TextButton(
+                    text="OK",
+                    style=action_button_style,
+                    on_click=close_banner
+                    ),
             ],
-        )  
+        )
 
     def login(e):
         if not all([user_value.current.value, password_value.current.value]):
             print("Error: Faltan valores necesarios.")
             return
 
-        response = get_login([user_value.current.value, password_value.current.value])
+        response = get_login([
+            user_value.current.value,
+            password_value.current.value
+        ])
 
         if len(response) > 0:
             page.client_storage.set("id_user", response[0]['id'])
@@ -54,21 +65,21 @@ def login_screen(page: ft.Page):
                     height=40,
                     hint_text="Usuario",
                     border="underline",
-                    color=ft.colors.WHITE,
+                    border_color="#A18249",
                     prefix_icon=ft.icons.SUPERVISED_USER_CIRCLE_SHARP,
                     ref=user_value
                 ),
                 padding=ft.padding.only(20, 20)
             ),
             ft.Container(
-                ft.TextField(
+                content=ft.TextField(
                     width=280,
                     height=40,
                     hint_text="Contraseña",
-                    border="underline",
-                    color=ft.colors.WHITE,
+                    border=ft.InputBorder.UNDERLINE,
+                    border_color="#A18249",
                     prefix_icon=ft.icons.LOCK,
-                    password="true",
+                    password=True,
                     ref=password_value
                 ),
                 padding=ft.padding.only(20, 20)
@@ -77,8 +88,9 @@ def login_screen(page: ft.Page):
                 ft.ElevatedButton(
                     "Iniciar",
                     width=280,
-                    bgcolor="black",
-                    on_click=login
+                    bgcolor="#019863",
+                    on_click=login,
+                    color="white"
                 ),
                 padding=ft.padding.only(20, 20)
             ),
@@ -86,9 +98,5 @@ def login_screen(page: ft.Page):
             alignment=ft.MainAxisAlignment.SPACE_EVENLY
         ),
         expand=True,
-        gradient=ft.LinearGradient([
-            "#2b2147",  # Color marrón en hexadecimal
-            "#38197a"
-        ]),
         padding=ft.padding.only(25, 25),
     )
