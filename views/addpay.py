@@ -139,7 +139,7 @@ def add_pay(page: ft.Page):
                             on_click=lambda e: page.open(
                                 ft.DatePicker(
                                     first_date=datetime.datetime(year=2023, month=10, day=1),
-                                    last_date=datetime.datetime(year=2024, month=10, day=1),
+                                    last_date=datetime.datetime(year=2050, month=10, day=1),
                                     ref=date_value  # Asignar referencia
                                 )
                             ),

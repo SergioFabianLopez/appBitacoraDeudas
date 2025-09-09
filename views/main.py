@@ -7,8 +7,7 @@ lv = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
 rows = ft.Row([
     ft.Text("#", color=ft.colors.BLACK),
     ft.Text("Fecha de pago", color=ft.colors.BLACK),
-    ft.Text("Cantidad", color=ft.colors.BLACK),
-    ft.Text("Restante", color=ft.colors.BLACK),
+    ft.Text("Cantidad", color=ft.colors.BLACK)
 ],
     alignment=ft.MainAxisAlignment.CENTER,
     spacing=20
@@ -24,7 +23,6 @@ def dropdown_changed(e):
             ft.Text(item_pay, color=ft.colors.BLACK),
             ft.Text(item['payments_date'], color=ft.colors.BLACK),
             ft.Text(item['amount'], color=ft.colors.BLACK),
-            ft.Text(item['remaining'], color=ft.colors.BLACK),
         ],
             alignment=ft.MainAxisAlignment.CENTER,
             spacing=45

@@ -29,10 +29,14 @@ def navbar(page: ft.Page):
             active_color=ft.colors.BLACK,
             bgcolor=ft.colors.GREY,
             destinations=[
-                ft.NavigationBarDestination(icon=ft.icons.FORMAT_LIST_BULLETED_ROUNDED, label="Pagos"),
-                ft.NavigationBarDestination(icon=ft.icons.ATTACH_MONEY, label="Agregar pago"),
-                ft.NavigationBarDestination(icon=ft.icons.WALLET, label="Cuentas"),
-                ft.NavigationBarDestination(icon=ft.icons.EXIT_TO_APP, label="Salir"),
+                ft.NavigationBarDestination(
+                    icon=ft.icons.FORMAT_LIST_BULLETED_ROUNDED, label="Pagos"),
+                ft.NavigationBarDestination(
+                    icon=ft.icons.ATTACH_MONEY, label="Agregar pago"),
+                ft.NavigationBarDestination(
+                    icon=ft.icons.WALLET, label="Cuentas"),
+                ft.NavigationBarDestination(
+                    icon=ft.icons.EXIT_TO_APP, label="Salir"),
             ],
             on_change=on_tab_change,
             ),
@@ -43,7 +47,8 @@ def navbar(page: ft.Page):
     # Agrega el contenido inicial
     content_area.controls.append(main_screen(page))
 
-    # Devuelve una columna con el área de contenido en la parte superior y la barra de navegación en la parte inferior
+    # Devuelve una columna con el área de contenido en la parte superior y
+    # la barra de navegación en la parte inferior
     return ft.Column(
         controls=[
             content_area,

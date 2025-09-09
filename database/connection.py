@@ -7,6 +7,7 @@ import os
 # Cargar las variables de entorno desde el archivo .env
 load_dotenv()
 
+
 def create_connection():
     """Establecer la conexión con la base de datos MySQL."""
     try:
@@ -24,6 +25,7 @@ def create_connection():
     except Error as e:
         print(f"Error al conectar a la base de datos: {e}")
         return None
+
 
 def execute_query(query, params=None):
     """Ejecutar un procedimiento almacenado y devolver los resultados en formato de diccionario."""

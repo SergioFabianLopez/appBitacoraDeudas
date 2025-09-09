@@ -31,3 +31,8 @@ def list_accounts_user(params):
 def list_accounts_id(params):
     result = execute_query("get_accounts_id", params)
     return result
+
+
+def get_all_users():
+    result = execute_query("get_all_users")
+    return result

@@ -1,7 +1,9 @@
 import flet as ft
 from routes.routes import route_change
 
+
 def main(page: ft.Page):
+    page.theme_mode = ft.ThemeMode.LIGHT
     page.title = "Me Debes App"
     page.vertical_alignment = "center"
     page.horizontal_alignment = "center"

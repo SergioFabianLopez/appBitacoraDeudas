@@ -51,7 +51,7 @@ def login_screen(page: ft.Page):
         ft.Column([
             ft.Container(
                 ft.Text(
-                    "Iniciar Sesión V1.0",
+                    "Iniciar Sesión V1.1",
                     width=320,
                     size=30,
                     text_align="center",
